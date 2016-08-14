@@ -1,4 +1,8 @@
 # 파트론 SDK v1.0.0
+
+## Device Info
+  * http://www.croise.co.kr/product/product_0601.php
+
 ## 사용조건
 파트론 Temperature SDK는 누구나 사용할수 있습니다. SDK실행시 생기는 팝업을 임의로 훼손하거나  
 변경하는 행위시 라이센스 위반이며 확인 버튼을 선택시 SDK를 사용하겠다는 동의로 간주됩니다.  
