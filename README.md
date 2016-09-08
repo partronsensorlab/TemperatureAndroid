@@ -1,4 +1,4 @@
-# 파트론 SDK v1.0.0
+# 파트론 SDK v1.1.1
 
 ## Device Info
   * http://www.croise.co.kr/product/product_0601.php
@@ -19,4 +19,8 @@
 
 PTD시리즈의 다른 목적으로 사용하실 분은 아래 연락처로 연락바랍니다.  
 B2C 영업 : jakeshin@partron.co.kr  
-SW배포 담당자 : eddy@partron.co.kr  
+SW배포 담당자 : eddy@partron.co.kr
+
+## 수정이력  
+2016-09-08 디바이스 상태를 알수 있도록 수정, 온도값 관련 수식
+
