@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="partrontemperlib-release-unspecified">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/PartronTemperExample/partrontemperlib-release/unspecified/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/PartronTemperExample/partrontemperlib-release/unspecified/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/TemperatureAndroid/partrontemperlib-release/unspecified/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/TemperatureAndroid/partrontemperlib-release/unspecified/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

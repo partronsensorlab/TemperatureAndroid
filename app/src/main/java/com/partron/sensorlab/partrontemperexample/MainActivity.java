@@ -18,8 +18,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.partron.temperandroid.partrontemperlib.PartronTemperService;
+import com.partron.temperandroid.partrontemperlib.temperature.TemperLib;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection{
 
@@ -32,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     private String TAG = "MainActivity";
     private Button button;
     private TextView textView;
-    private static float human;
+    private static float human, ambient;
     private DongleIntentReceiver myReceiver;
     private IntentFilter filter;
+    TemperLib mPartron = new TemperLib();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!PartronTemperService.recv_data){
+                    Toast.makeText(MainActivity.this, "연결상태를 확인해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mRefreshHandler.sendEmptyMessageDelayed(SELF_TIMER_MSG, SELF_TIMER_MSG_INTERVAL);
                 button.setEnabled(false);
             }
@@ -148,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     Log.d(TAG, "MSG_SET_INT_VALUE Message id : " + msg.arg1 + " Value : " + msg.arg2);
                     if(msg.arg1 == 1)
                         human = msg.arg2;
+                    if(msg.arg2 == 2)
+                        ambient = msg.arg2;
                     break;
                 default:
                     super.handleMessage(msg);
@@ -159,7 +168,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         public boolean handleMessage(Message msg){
             switch(msg.what){
                 case SELF_TIMER_MSG:
-                    textView.setText("body temperature : " + human / 10 + " ℃");
+                    double final_targettemp_hum = human / 10;
+                    double sTmeas_output_hum = mPartron.P_get_sTmeas(final_targettemp_hum);
+                    double sTs_output_hum = mPartron.P_get_sTs(0.98, sTmeas_output_hum, ambient / 10);
+                    final_targettemp_hum = mPartron.P_get_finalTargetTemp(sTs_output_hum);
+                    float tempValue = (float) mPartron.P_FT_Algorithm(final_targettemp_hum);
+                    textView.setText("body temperature : " + tempValue + " ℃");
                     button.setEnabled(true);
                     break;
             }
